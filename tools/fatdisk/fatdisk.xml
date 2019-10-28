@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fatdisk>
+   <disk_size>679</disk_size>
+   <sector_size>512</sector_size>
+   <root_dir>flash0</root_dir>
+   <output>flash0.bin</output>
+   <strip>1</strip>
+</fatdisk>

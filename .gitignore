@@ -1,0 +1,35 @@
+*.pyc
+*.map
+*.dblite
+*.elf
+*.bin
+*.hex
+*.axf
+*.pdb
+*.idb
+*.ilk
+*.old
+build
+Debug
+documentation/html
+*~
+*.o
+*.obj
+*.bak
+*.dep
+*.lib
+*.i
+*.d
+tools/kconfig-frontends/kconfig-mconf
+cconfig.h
+GPUCache
+
+#cscope files
+cscope.*
+ncscope.*
+
+#ctag files
+tags
+
+bk7221u_release/.vscode/settings.json
+/bk7221u_release/.vscode

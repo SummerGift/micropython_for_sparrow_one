@@ -1,0 +1,5 @@
+Usage: speex [e or d] [rate] [in file] [out file]
+
+speex d 8000 8k.spx 8k.spx.pcm
+speex d 16000 8k.spx 8k-16k.spx.pcm
+speex e 8000 8k.pcm 8k.pcm.spx
