@@ -379,4 +379,6 @@
 #define QSPI_TEST
 #define TEST_DEEP_SLEEP
 //#define PKG_USING_QRCODE
+#define PKG_USING_LITTLEFS
+#define RT_USING_MTD_NOR
 #endif
