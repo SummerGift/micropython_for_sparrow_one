@@ -99,7 +99,7 @@ STATIC MP_DEFINE_CONST_FUN_OBJ_0(mod_list_device_obj, mod_list_device);
 STATIC mp_obj_t mod_http_ota(mp_obj_t http_url) {
     void mpy_http_ota(char *url);
     const char *url = mp_obj_str_get_str(http_url);
-    mpy_http_ota(url);
+    mpy_http_ota((char *)url);
     mp_printf(&mp_plat_print, "begin to http OTA");
 }
 STATIC MP_DEFINE_CONST_FUN_OBJ_1(mod_http_ota_obj, mod_http_ota);
@@ -153,10 +153,10 @@ STATIC mp_obj_t wlan_connect(size_t n_args, const mp_obj_t *pos_args, mp_map_t *
     rt_wlan_init(wlan, WIFI_STATION);
     network_mode = WIFI_STATION;
 
-    rt_wlan_info_init(&info, WIFI_STATION, SECURITY_WPA2_MIXED_PSK, ssid);
-    error_check(rt_wlan_connect(wlan, &info, key) == RT_EOK, "Cannot connect to AP");
+    rt_wlan_info_init(&info, WIFI_STATION, SECURITY_WPA2_MIXED_PSK, (char *)ssid);
+    error_check(rt_wlan_connect(wlan, &info, (char *)key) == RT_EOK, "Cannot connect to AP");
     rt_wlan_info_deinit(&info);
-    mp_printf(&mp_plat_print, "Connect wifi successful.");
+    mp_printf(&mp_plat_print, "Connect wifi successful.\n");
 
     return mp_const_none;
 }
