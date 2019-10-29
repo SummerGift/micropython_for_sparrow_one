@@ -33,3 +33,7 @@ tags
 
 bk7221u_release/.vscode/settings.json
 /bk7221u_release/.vscode
+.vscode/settings.json
+firmware/.vscode/settings.json
+firmware/rtthread.rbl
+firmware/download_for_ota.bat
