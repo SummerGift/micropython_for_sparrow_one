@@ -163,12 +163,12 @@ int main(int argc, char **argv)
     /* 等待系统初始化完毕 */
     rt_thread_mdelay(100);
 
-    // while(1)
-    // {
+    while(1)
+    {
         /* 打开 MicroPython 命令交互界面 */
         extern void mpy_main(const char *filename);
         mpy_main(NULL);
-    // }
+    }
 
     return 0;
 }
