@@ -58,6 +58,7 @@ extern int rt_hw_flash_disk_readonly_init(const char *name, uint32_t base, uint3
 
 int main(int argc, char **argv)
 {
+#if 0
     /* mount ROMFS as root directory */
     if (dfs_mount(RT_NULL, "/", "rom", 0, (const void *)DFS_ROMFS_ROOT) == 0)
     {
@@ -67,8 +68,9 @@ int main(int argc, char **argv)
     {
         rt_kprintf("ROMFS File System initialized Failed!\n");
     }
-
-#if 1
+#endif
+ 
+#if 0
     /* mount sd card fat partition 1 as root directory */
     if(dfs_mount("sd0", "/sd", "elm", 0, 0) == 0)
         rt_kprintf("SD File System initialized!\n");
@@ -100,8 +102,8 @@ int main(int argc, char **argv)
 
 #ifdef PKG_USING_LITTLEFS
     {
-        const char *lfs_part_name = "download";
-        const char *lfs_mount_path = "/flash0";
+        const char *lfs_part_name = "filesystem";
+        const char *lfs_mount_path = "/";
         struct rt_device *mtd_dev = RT_NULL;
 
         mtd_dev = fal_mtd_nor_device_create(lfs_part_name);
