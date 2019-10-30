@@ -1,5 +1,7 @@
 # 麻雀一号开发板 MicroPython 仓库 ([English](#introduction)）
 
+如果 Git 下载速度较慢，还可以通过 [Gitee](https://gitee.com/SummerGift/sparrow_one_micropython) 连接来下载该仓库。
+
 ## 目录介绍
 
 | 目录名   | 介绍             |
