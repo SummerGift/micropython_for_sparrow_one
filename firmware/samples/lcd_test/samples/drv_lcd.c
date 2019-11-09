@@ -38,16 +38,6 @@ static int rt_hw_lcd_config(void)
 {
     spi_dev_lcd = (struct rt_spi_device *)rt_device_find("spi3");
 
-    // /* config spi */
-    // {
-    //     struct rt_spi_configuration cfg;
-    //     cfg.data_width = 8;
-    //     cfg.mode = RT_SPI_MASTER | RT_SPI_MODE_0 | RT_SPI_MSB;
-    //     cfg.max_hz = 100 * 1000; /* 100M, SPI max 100MHz, lcd 3-wire spi */  //50 * 1000 * 1000
-
-    //     rt_spi_configure(spi_dev_lcd, &cfg);
-    // }
-
     return RT_EOK;
 }
 
@@ -254,6 +244,22 @@ void lcd_draw_point(rt_uint16_t x, rt_uint16_t y)
 {
     lcd_address_set(x, y, x, y);
     lcd_write_half_word(FORE_COLOR);
+}
+
+/**
+ * display a point on the lcd using the given colour.
+ *
+ * @param   x       x position
+ * @param   y       y position
+ * @param   color   color of point
+ *
+ * @return  void
+ */
+
+void lcd_draw_point_color(rt_uint16_t x, rt_uint16_t y, rt_uint16_t color)
+{
+    lcd_address_set(x, y, x, y);
+    lcd_write_half_word(color);
 }
 
 /**
@@ -716,10 +722,7 @@ rt_err_t lcd_show_image(rt_uint16_t x, rt_uint16_t y, rt_uint16_t length, rt_uin
 
     rt_pin_write(LCD_DCx_PIN, PIN_HIGH);
 
-    for(int i = 0; i < 10; i++)
-    {
-        rt_spi_send(spi_dev_lcd, p+(i*length*wide/5), length*wide/5);
-    }
+    rt_spi_send(spi_dev_lcd, p, length * wide * 2);
 
     return RT_EOK;
 }
@@ -975,6 +978,39 @@ static int _rt_hw_lcd_init(void)
     lcd_write_cmd(0xD0);
     lcd_write_data(0xA4);
     lcd_write_data(0xA1);
+
+    /* Positive Voltage Gamma Control */
+    lcd_write_cmd(0xE0);
+    lcd_write_data(0xD0);
+    lcd_write_data(0x04);
+    lcd_write_data(0x0D);
+    lcd_write_data(0x11);
+    lcd_write_data(0x13);
+    lcd_write_data(0x2B);
+    lcd_write_data(0x3F);
+    lcd_write_data(0x54);
+    lcd_write_data(0x4C);
+    lcd_write_data(0x18);
+    lcd_write_data(0x0D);
+    lcd_write_data(0x0B);
+    lcd_write_data(0x1F);
+    lcd_write_data(0x23);
+    /* Negative Voltage Gamma Control */
+    lcd_write_cmd(0xE1);
+    lcd_write_data(0xD0);
+    lcd_write_data(0x04);
+    lcd_write_data(0x0C);
+    lcd_write_data(0x11);
+    lcd_write_data(0x13);
+    lcd_write_data(0x2C);
+    lcd_write_data(0x3F);
+    lcd_write_data(0x44);
+    lcd_write_data(0x51);
+    lcd_write_data(0x2F);
+    lcd_write_data(0x1F);
+    lcd_write_data(0x1F);
+    lcd_write_data(0x20);
+    lcd_write_data(0x23);
 
     /* Display Inversion On */
     lcd_write_cmd(0x21);
