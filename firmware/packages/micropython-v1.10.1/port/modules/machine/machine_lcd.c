@@ -41,6 +41,28 @@ typedef struct _machine_lcd_obj_t {
     mp_obj_base_t base;
 } machine_lcd_obj_t;
 
+STATIC uint32_t seu32get(void* p)
+{
+    uint8_t *a;
+    uint32_t v;
+    a = p;
+    v = a[0];
+    v |= a[1] << 8;
+    v |= a[2] << 16;
+    v |= a[3] << 24;
+    return v;
+}
+
+STATIC uint16_t seu16get(void* p)
+{
+    uint8_t *a;
+    uint16_t v;
+    a = p;
+    v = a[0];
+    v |= a[1] << 8;
+    return v;
+}
+
 STATIC void error_check(bool status, const char *msg) {
     if (!status) {
         nlr_raise(mp_obj_new_exception_msg(&mp_type_ValueError, msg));
@@ -254,9 +276,9 @@ STATIC mp_obj_t machine_lcd_show_bmp(size_t n_args, const mp_obj_t *args) {
         mp_raise_OSError(MP_EINVAL);
     }
 
-    rt_uint32_t width  = *(rt_uint32_t *)(bmp_info + 18);
-    rt_uint32_t heigth = *(rt_uint32_t *)(bmp_info + 22);
-    rt_uint16_t bit_count = *(rt_uint16_t *)(bmp_info + 28);
+    rt_uint32_t width  = seu32get(bmp_info + 18);
+    rt_uint32_t heigth = seu32get(bmp_info + 22);
+    rt_uint16_t bit_count = seu16get(bmp_info + 28);
     
     if (bit_count != 32)
     {
