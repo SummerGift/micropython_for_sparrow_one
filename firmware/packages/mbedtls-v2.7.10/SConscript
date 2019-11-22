@@ -148,6 +148,9 @@ cwd + '/mbedtls/include',
 cwd + '/ports/inc',
 ]
 
+LIBS             = ["libmbedtls_gcc.a"]
+LIBPATH          = [GetCurrentDir()] 
+
 if rtconfig.CROSS_TOOL == 'gcc' or rtconfig.CROSS_TOOL == 'keil' or rtconfig.CROSS_TOOL == 'iar':
     import shutil
     cp_src = cwd + '/ports/inc/tls_config.h'
@@ -157,6 +160,8 @@ if rtconfig.CROSS_TOOL == 'gcc' or rtconfig.CROSS_TOOL == 'keil' or rtconfig.CRO
 else:
     CPPDEFINES = []
 
-group = DefineGroup('mbedtls', src, depend = ['PKG_USING_MBEDTLS'], CPPPATH = CPPPATH, CPPDEFINES = CPPDEFINES)
+src = []
+
+group = DefineGroup('mbedtls', src, LIBS = LIBS, LIBPATH = LIBPATH, depend = ['PKG_USING_MBEDTLS'], CPPPATH = CPPPATH, CPPDEFINES = CPPDEFINES)
 
 Return('group')
