@@ -93,7 +93,7 @@ STATIC mp_obj_t player_play_song(mp_obj_t self_in) {
 
     //Your code begin
     mp_printf(&mp_plat_print, "player_play_song \n");
-    player_play(); //恢复播放
+    player_play(); 
     
     //Your code end
 
@@ -135,7 +135,7 @@ STATIC mp_obj_t player_stop_song(mp_obj_t self_in) {
 
     //Your code begin
     mp_printf(&mp_plat_print, "player_stop_song \n");
-    player_stop();  //停止播放
+    player_stop();  
     
     //Your code end
 
