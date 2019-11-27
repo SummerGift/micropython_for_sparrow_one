@@ -150,10 +150,10 @@ int main(int argc, char **argv)
     player_codec_helixmp3_register(); 
     player_codec_beken_aac_register(); 
     player_codec_beken_m4a_register(); 
-	player_codec_opencore_amr_register(); 
+    player_codec_opencore_amr_register(); 
 
 	/* 初始化 */ 
-	player_system_init();
+    player_system_init();
     audio_device_mic_open(); /*open mic device */
 
     #if ((CFG_USE_APP_DEMO_VIDEO_TRANSFER) || (CFG_SUPPORT_TIANZHIHENG_DRONE))
