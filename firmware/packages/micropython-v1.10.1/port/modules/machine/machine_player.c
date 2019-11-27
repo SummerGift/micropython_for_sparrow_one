@@ -34,7 +34,6 @@
 #define MICROPY_PY_MACHINE_PLAYER 1
 
 #if MICROPY_PY_MACHINE_PLAYER
-// Include required definitions first.
 
 typedef struct _machine_player_obj_t {
     mp_obj_base_t base;
@@ -42,14 +41,18 @@ typedef struct _machine_player_obj_t {
 } machine_player_obj_t;
 
 const mp_obj_type_t machine_player_type;
+extern const mp_print_t mp_plat_print;
+
+STATIC void error_check(bool status, const char *msg) {
+    if (!status) {
+        nlr_raise(mp_obj_new_exception_msg(&mp_type_ValueError, msg));
+    }
+}
 
 STATIC mp_obj_t machine_player_make_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args) {
     machine_player_obj_t *self = m_new_obj(machine_player_obj_t);
-	self->base.type = &machine_player_type;
-    // return constant object
-
+    self->base.type = &machine_player_type;
     mp_arg_check_num(n_args, n_kw, 0, 0, true);
-
     return MP_OBJ_FROM_PTR(self);
 }
 
@@ -58,44 +61,54 @@ STATIC mp_obj_t player_opensong(mp_obj_t self_in, mp_obj_t path_obj) {
     const char* path = mp_obj_str_get_str(path_obj);
     machine_player_obj_t *self = self_in;
     self->song_path = path;
-    mp_int_t ret_val;
 
-    //Your code here
+    mp_printf(&mp_plat_print, "song path=%s ", self->song_path);
 
-    return mp_obj_new_int(ret_val);
+    //Your code begin
+
+    
+    //Your code end
+
+    return mp_const_none;
 }
 MP_DEFINE_CONST_FUN_OBJ_2(player_opensong_obj, player_opensong);
 
 //pause music playing
 STATIC mp_obj_t player_pause(mp_obj_t self_in) {
     machine_player_obj_t *self = self_in;
-    mp_int_t ret_val;
 
-    //Your code here
+    //Your code begin
+    
+    
+    //Your code end
 
-    return mp_obj_new_int(ret_val);
+    return mp_const_none;
 }
 MP_DEFINE_CONST_FUN_OBJ_1(player_pause_obj, player_pause);
 
 //begin to play or continue to play music
 STATIC mp_obj_t player_play(mp_obj_t self_in) {
     machine_player_obj_t *self = self_in;
-    mp_int_t ret_val;
 
-    //Your code here
+    //Your code begin
+    
+    
+    //Your code end
 
-    return mp_obj_new_int(ret_val);
+    return mp_const_none;
 }
 MP_DEFINE_CONST_FUN_OBJ_1(player_play_obj, player_play);
 
 //stop playing music
 STATIC mp_obj_t player_set_volume(mp_obj_t volume_value_obj) {
     mp_int_t volume_value = mp_obj_get_int(volume_value_obj);
-    mp_int_t ret_val;
+    
+    //Your code begin
+    
+    
+    //Your code end
 
-    //Your code here
-
-    return mp_obj_new_int(ret_val);
+    return mp_const_none;
 }
 MP_DEFINE_CONST_FUN_OBJ_1(player_set_volume_obj, player_set_volume);
 
@@ -104,7 +117,10 @@ STATIC mp_obj_t player_stop(mp_obj_t self_in) {
     machine_player_obj_t *self = self_in;
     mp_int_t ret_val;
 
-    //Your code here
+    //Your code begin
+    
+    
+    //Your code end
 
     return mp_obj_new_int(ret_val);
 }
