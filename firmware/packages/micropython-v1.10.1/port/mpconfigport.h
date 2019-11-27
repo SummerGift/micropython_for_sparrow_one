@@ -168,6 +168,10 @@
 #define MICROPY_PY_MACHINE_TIMER     (1)
 #endif
 
+#ifdef MICROPYTHON_USING_MACHINE_PLAYER
+#define MICROPY_PY_MACHINE_PLAYER    (1)
+#endif
+
 /*****************************************************************************/
 /* System Module                                                             */
 

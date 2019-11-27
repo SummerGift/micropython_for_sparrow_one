@@ -31,8 +31,6 @@
 #include "py/obj.h"
 #include "py/builtin.h"
 
-#define MICROPY_PY_MACHINE_PLAYER 1
-
 #if MICROPY_PY_MACHINE_PLAYER
 
 typedef struct _machine_player_obj_t {
