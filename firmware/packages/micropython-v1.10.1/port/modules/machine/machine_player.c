@@ -48,7 +48,7 @@ STATIC mp_obj_t machine_player_make_new(const mp_obj_type_t *type, size_t n_args
 	self->base.type = &machine_player_type;
     // return constant object
 
-    mp_arg_check_num(n_args, n_kw, 1, 1, true);
+    mp_arg_check_num(n_args, n_kw, 0, 0, true);
 
     return MP_OBJ_FROM_PTR(self);
 }
