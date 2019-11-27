@@ -60,7 +60,7 @@ STATIC mp_obj_t player_opensong(mp_obj_t self_in, mp_obj_t path_obj) {
     machine_player_obj_t *self = self_in;
     self->song_path = path;
 
-    mp_printf(&mp_plat_print, "song path=%s ", self->song_path);
+    mp_printf(&mp_plat_print, "song path = %s\n", self->song_path);
 
     //Your code begin
 
