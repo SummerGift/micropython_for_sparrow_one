@@ -146,15 +146,15 @@ int main(int argc, char **argv)
     wlan_app_init();
 	rt_audio_codec_hw_init();
 
-    // /* 注册Codec */ 
-    // player_codec_helixmp3_register(); 
-    // player_codec_beken_aac_register(); 
-    // player_codec_beken_m4a_register(); 
-	// player_codec_opencore_amr_register(); 
+    /* 注册Codec */ 
+    player_codec_helixmp3_register(); 
+    player_codec_beken_aac_register(); 
+    player_codec_beken_m4a_register(); 
+    player_codec_opencore_amr_register(); 
 
-	// /* 初始化 */ 
-	// player_system_init();
-    // audio_device_mic_open(); /*open mic device */
+	/* 初始化 */ 
+    player_system_init();
+    audio_device_mic_open(); /*open mic device */
 
     #if ((CFG_USE_APP_DEMO_VIDEO_TRANSFER) || (CFG_SUPPORT_TIANZHIHENG_DRONE))
     // user_main(NULL);
