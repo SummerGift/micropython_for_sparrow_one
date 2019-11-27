@@ -41,8 +41,11 @@ typedef struct _machine_player_obj_t {
     const char* song_path;
 } machine_player_obj_t;
 
+const mp_obj_type_t machine_player_type;
+
 STATIC mp_obj_t machine_player_make_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args) {
     machine_player_obj_t *self = m_new_obj(machine_player_obj_t);
+	self->base.type = &machine_player_type;
     // return constant object
 
     mp_arg_check_num(n_args, n_kw, 1, 1, true);
