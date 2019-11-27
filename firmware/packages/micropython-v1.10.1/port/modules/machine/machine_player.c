@@ -63,6 +63,8 @@ STATIC mp_obj_t player_open_song(mp_obj_t self_in, mp_obj_t path_obj) {
     mp_printf(&mp_plat_print, "song path = %s\n", self->song_path);
 
     //Your code begin
+    player_set_uri(self->song_path); //Setting uri
+    player_play();   //start play
 
 
     //Your code end
@@ -76,8 +78,9 @@ STATIC mp_obj_t player_pause_song(mp_obj_t self_in) {
     machine_player_obj_t *self = self_in;
 
     //Your code begin
-    
-    
+     mp_printf(&mp_plat_print, "player_pause_song \n");
+   
+     player_pause(); 
     //Your code end
 
     return mp_const_none;
@@ -89,7 +92,8 @@ STATIC mp_obj_t player_play_song(mp_obj_t self_in) {
     machine_player_obj_t *self = self_in;
 
     //Your code begin
-    
+    mp_printf(&mp_plat_print, "player_play_song \n");
+    player_play(); 
     
     //Your code end
 
@@ -103,7 +107,20 @@ STATIC mp_obj_t player_set_volume_song(mp_obj_t self_in, mp_obj_t volume_value_o
     mp_int_t volume_value = mp_obj_get_int(volume_value_obj);
     
     //Your code begin
-    
+    mp_printf(&mp_plat_print, "player_set_volume_song \n");
+    if(volume_value != (-1))
+    {
+        if((volume_value < 0 ) ||(volume_value > 99 ))
+        {
+            mp_printf(&mp_plat_print, "Player set vol= %d is not in 0~99 \n",volume_value);
+
+        }
+        else
+        {
+            player_set_volume(volume_value);
+        }
+        
+    }
     
     //Your code end
 
@@ -117,7 +134,8 @@ STATIC mp_obj_t player_stop_song(mp_obj_t self_in) {
     mp_int_t ret_val;
 
     //Your code begin
-    
+    mp_printf(&mp_plat_print, "player_stop_song \n");
+    player_stop();  
     
     //Your code end
 
