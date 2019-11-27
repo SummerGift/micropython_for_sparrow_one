@@ -55,7 +55,7 @@ STATIC mp_obj_t machine_player_make_new(const mp_obj_type_t *type, size_t n_args
 }
 
 //set a music to play
-STATIC mp_obj_t player_opensong(mp_obj_t self_in, mp_obj_t path_obj) {
+STATIC mp_obj_t player_open_song(mp_obj_t self_in, mp_obj_t path_obj) {
     const char* path = mp_obj_str_get_str(path_obj);
     machine_player_obj_t *self = self_in;
     self->song_path = path;
@@ -69,7 +69,7 @@ STATIC mp_obj_t player_opensong(mp_obj_t self_in, mp_obj_t path_obj) {
 
     return mp_const_none;
 }
-MP_DEFINE_CONST_FUN_OBJ_2(player_opensong_obj, player_opensong);
+MP_DEFINE_CONST_FUN_OBJ_2(player_open_song_obj, player_open_song);
 
 //pause music playing
 STATIC mp_obj_t player_pause_song(mp_obj_t self_in) {
@@ -85,7 +85,7 @@ STATIC mp_obj_t player_pause_song(mp_obj_t self_in) {
 MP_DEFINE_CONST_FUN_OBJ_1(player_pause_song_obj, player_pause_song);
 
 //begin to play or continue to play music
-STATIC mp_obj_t player_play(mp_obj_t self_in) {
+STATIC mp_obj_t player_play_song(mp_obj_t self_in) {
     machine_player_obj_t *self = self_in;
 
     //Your code begin
@@ -95,10 +95,10 @@ STATIC mp_obj_t player_play(mp_obj_t self_in) {
 
     return mp_const_none;
 }
-MP_DEFINE_CONST_FUN_OBJ_1(player_play_obj, player_play);
+MP_DEFINE_CONST_FUN_OBJ_1(player_play_song_obj, player_play_song);
 
 //stop playing music
-STATIC mp_obj_t player_set_volume(mp_obj_t volume_value_obj) {
+STATIC mp_obj_t player_set_volume_song(mp_obj_t volume_value_obj) {
     mp_int_t volume_value = mp_obj_get_int(volume_value_obj);
     
     //Your code begin
@@ -108,10 +108,10 @@ STATIC mp_obj_t player_set_volume(mp_obj_t volume_value_obj) {
 
     return mp_const_none;
 }
-MP_DEFINE_CONST_FUN_OBJ_1(player_set_volume_obj, player_set_volume);
+MP_DEFINE_CONST_FUN_OBJ_1(player_set_volume_song_obj, player_set_volume_song);
 
 //stop playing, if this api is called, u should call opensong() to set a now song to play
-STATIC mp_obj_t player_stop(mp_obj_t self_in) {
+STATIC mp_obj_t player_stop_song(mp_obj_t self_in) {
     machine_player_obj_t *self = self_in;
     mp_int_t ret_val;
 
@@ -122,15 +122,15 @@ STATIC mp_obj_t player_stop(mp_obj_t self_in) {
 
     return mp_obj_new_int(ret_val);
 }
-MP_DEFINE_CONST_FUN_OBJ_1(player_stop_obj, player_stop);
+MP_DEFINE_CONST_FUN_OBJ_1(player_stop_song_obj, player_stop_song);
 
 STATIC const mp_rom_map_elem_t player_module_globals_table[] = {
 	{ MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_Player) },
-	{ MP_ROM_QSTR(MP_QSTR_opensong), MP_ROM_PTR(&player_opensong_obj) },
+	{ MP_ROM_QSTR(MP_QSTR_opensong), MP_ROM_PTR(&player_open_song_obj) },
 	{ MP_ROM_QSTR(MP_QSTR_pause), MP_ROM_PTR(&player_pause_song_obj) },
-	{ MP_ROM_QSTR(MP_QSTR_play), MP_ROM_PTR(&player_play_obj) },
-	{ MP_ROM_QSTR(MP_QSTR_set_volume), MP_ROM_PTR(&player_set_volume_obj) },
-	{ MP_ROM_QSTR(MP_QSTR_stop), MP_ROM_PTR(&player_stop_obj) },
+	{ MP_ROM_QSTR(MP_QSTR_play), MP_ROM_PTR(&player_play_song_obj) },
+	{ MP_ROM_QSTR(MP_QSTR_set_volume), MP_ROM_PTR(&player_set_volume_song_obj) },
+	{ MP_ROM_QSTR(MP_QSTR_stop), MP_ROM_PTR(&player_stop_song_obj) },
 };
 
 STATIC MP_DEFINE_CONST_DICT(player_module_globals, player_module_globals_table);
