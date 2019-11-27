@@ -98,7 +98,8 @@ STATIC mp_obj_t player_play_song(mp_obj_t self_in) {
 MP_DEFINE_CONST_FUN_OBJ_1(player_play_song_obj, player_play_song);
 
 //stop playing music
-STATIC mp_obj_t player_set_volume_song(mp_obj_t volume_value_obj) {
+STATIC mp_obj_t player_set_volume_song(mp_obj_t self_in, mp_obj_t volume_value_obj) {
+    machine_player_obj_t *self = self_in;
     mp_int_t volume_value = mp_obj_get_int(volume_value_obj);
     
     //Your code begin
@@ -108,7 +109,7 @@ STATIC mp_obj_t player_set_volume_song(mp_obj_t volume_value_obj) {
 
     return mp_const_none;
 }
-MP_DEFINE_CONST_FUN_OBJ_1(player_set_volume_song_obj, player_set_volume_song);
+MP_DEFINE_CONST_FUN_OBJ_2(player_set_volume_song_obj, player_set_volume_song);
 
 //stop playing, if this api is called, u should call opensong() to set a now song to play
 STATIC mp_obj_t player_stop_song(mp_obj_t self_in) {
