@@ -142,4 +142,4 @@ const mp_obj_type_t machine_player_type = {
     .locals_dict = (mp_obj_dict_t*)&player_module_globals,
 };
 
-#endif // MICROPY_PY_MACHINE_LCD
+#endif // MICROPY_PY_MACHINE_PLAYER
