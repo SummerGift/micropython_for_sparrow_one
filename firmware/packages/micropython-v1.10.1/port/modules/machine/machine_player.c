@@ -64,7 +64,7 @@ STATIC mp_obj_t player_opensong(mp_obj_t self_in, mp_obj_t path_obj) {
 
     //Your code begin
 
-    
+
     //Your code end
 
     return mp_const_none;
@@ -72,7 +72,7 @@ STATIC mp_obj_t player_opensong(mp_obj_t self_in, mp_obj_t path_obj) {
 MP_DEFINE_CONST_FUN_OBJ_2(player_opensong_obj, player_opensong);
 
 //pause music playing
-STATIC mp_obj_t player_pause(mp_obj_t self_in) {
+STATIC mp_obj_t player_pause_song(mp_obj_t self_in) {
     machine_player_obj_t *self = self_in;
 
     //Your code begin
@@ -82,7 +82,7 @@ STATIC mp_obj_t player_pause(mp_obj_t self_in) {
 
     return mp_const_none;
 }
-MP_DEFINE_CONST_FUN_OBJ_1(player_pause_obj, player_pause);
+MP_DEFINE_CONST_FUN_OBJ_1(player_pause_song_obj, player_pause_song);
 
 //begin to play or continue to play music
 STATIC mp_obj_t player_play(mp_obj_t self_in) {
@@ -127,7 +127,7 @@ MP_DEFINE_CONST_FUN_OBJ_1(player_stop_obj, player_stop);
 STATIC const mp_rom_map_elem_t player_module_globals_table[] = {
 	{ MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_Player) },
 	{ MP_ROM_QSTR(MP_QSTR_opensong), MP_ROM_PTR(&player_opensong_obj) },
-	{ MP_ROM_QSTR(MP_QSTR_pause), MP_ROM_PTR(&player_pause_obj) },
+	{ MP_ROM_QSTR(MP_QSTR_pause), MP_ROM_PTR(&player_pause_song_obj) },
 	{ MP_ROM_QSTR(MP_QSTR_play), MP_ROM_PTR(&player_play_obj) },
 	{ MP_ROM_QSTR(MP_QSTR_set_volume), MP_ROM_PTR(&player_set_volume_obj) },
 	{ MP_ROM_QSTR(MP_QSTR_stop), MP_ROM_PTR(&player_stop_obj) },
