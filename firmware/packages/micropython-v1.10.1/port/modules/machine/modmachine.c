@@ -228,9 +228,6 @@ STATIC const mp_rom_map_elem_t machine_module_globals_table[] = {
 #if MICROPY_PY_MACHINE_TIMER
     { MP_ROM_QSTR(MP_QSTR_Timer),               MP_ROM_PTR(&machine_timer_type) },
 #endif
-#if MICROPY_PY_MACHINE_PLAYER
-    { MP_ROM_QSTR(MP_QSTR_Player),              MP_ROM_PTR(&machine_player_type) },
-#endif
 };
 
 STATIC MP_DEFINE_CONST_DICT(machine_module_globals, machine_module_globals_table);
