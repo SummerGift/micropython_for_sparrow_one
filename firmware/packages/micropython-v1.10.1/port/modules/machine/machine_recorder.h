@@ -23,11 +23,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#ifndef MICROPY_INCLUDED_PLAYER_H
-#define MICROPY_INCLUDED_PLAYER_H
+#ifndef MICROPY_INCLUDED_RECORDER_H
+#define MICROPY_INCLUDED_RECORDER_H
 
 #include "py/obj.h"
 
-extern const mp_obj_module_t mp_module_player;
+extern const mp_obj_module_t mp_module_recorder;
 
 #endif
