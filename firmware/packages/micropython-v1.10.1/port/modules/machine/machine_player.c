@@ -32,13 +32,14 @@
 #include "py/builtin.h"
 
 #if MICROPY_PY_PLAYER
+#include "player.h"
 
 typedef struct _machine_player_obj_t {
     mp_obj_base_t base;
     const char* song_path;
 } machine_player_obj_t;
 
-const mp_obj_type_t machine_player_type;
+STATIC const mp_obj_type_t mp_player_type;
 extern const mp_print_t mp_plat_print;
 
 STATIC void error_check(bool status, const char *msg) {
@@ -47,9 +48,9 @@ STATIC void error_check(bool status, const char *msg) {
     }
 }
 
-STATIC mp_obj_t machine_player_make_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args) {
+STATIC mp_obj_t player_make_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args) {
     machine_player_obj_t *self = m_new_obj(machine_player_obj_t);
-    self->base.type = &machine_player_type;
+    self->base.type = &mp_player_type;
     mp_arg_check_num(n_args, n_kw, 0, 0, true);
     return MP_OBJ_FROM_PTR(self);
 }
@@ -60,13 +61,10 @@ STATIC mp_obj_t player_open_song(mp_obj_t self_in, mp_obj_t path_obj) {
     machine_player_obj_t *self = self_in;
     self->song_path = path;
 
-    mp_printf(&mp_plat_print, "song path/url = %s\n", self->song_path);
-
     //Your code begin
+    mp_printf(&mp_plat_print, "song path/url = %s\n", self->song_path);
     player_set_uri(self->song_path);  //Setting uri
     player_play();                    //start play
-
-
     //Your code end
 
     return mp_const_none;
@@ -93,7 +91,6 @@ STATIC mp_obj_t player_play_song(mp_obj_t self_in) {
     //Your code begin
     mp_printf(&mp_plat_print, "player play\n");
     player_play(); 
-    
     //Your code end
 
     return mp_const_none;
@@ -118,7 +115,6 @@ STATIC mp_obj_t player_set_volume_song(mp_obj_t self_in, mp_obj_t volume_value_o
             player_set_volume(volume_value);
         }
     }
-    
     //Your code end
 
     return mp_const_none;
@@ -139,8 +135,16 @@ STATIC mp_obj_t player_stop_song(mp_obj_t self_in) {
 }
 MP_DEFINE_CONST_FUN_OBJ_1(player_stop_song_obj, player_stop_song);
 
+STATIC const mp_obj_type_t mp_player_type= {
+    { &mp_type_type },
+    .name = MP_QSTR_player,
+    .make_new = player_make_new,
+    .locals_dict = (mp_obj_dict_t*)&player_module_globals,
+};
+
 STATIC const mp_rom_map_elem_t player_module_globals_table[] = {
 	{ MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_player) },
+    { MP_OBJ_NEW_QSTR(MP_QSTR_player), (mp_obj_t)&mp_player_type },	
 	{ MP_ROM_QSTR(MP_QSTR_opensong), MP_ROM_PTR(&player_open_song_obj) },
 	{ MP_ROM_QSTR(MP_QSTR_pause), MP_ROM_PTR(&player_pause_song_obj) },
 	{ MP_ROM_QSTR(MP_QSTR_play), MP_ROM_PTR(&player_play_song_obj) },
@@ -149,11 +153,9 @@ STATIC const mp_rom_map_elem_t player_module_globals_table[] = {
 };
 STATIC MP_DEFINE_CONST_DICT(player_module_globals, player_module_globals_table);
 
-const mp_obj_type_t mp_module_player= {
-    { &mp_type_type },
-    .name = MP_QSTR_player,
-    .make_new = machine_player_make_new,
-    .locals_dict = (mp_obj_dict_t*)&player_module_globals,
+const mp_obj_module_t mp_module_player = {
+    .base = { &mp_type_module },
+    .globals = (mp_obj_dict_t*)&player_module_globals,
 };
 
-#endif // MICROPY_PY_MACHINE_PLAYER
+#endif // MICROPY_PY_PLAYER
