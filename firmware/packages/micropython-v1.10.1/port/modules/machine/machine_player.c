@@ -34,10 +34,10 @@
 #if MICROPY_PY_PLAYER
 #include "player.h"
 
-typedef struct _machine_player_obj_t {
+typedef struct _player_obj_t {
     mp_obj_base_t base;
     const char* song_path;
-} machine_player_obj_t;
+} player_obj_t;
 
 STATIC const mp_obj_type_t mp_player_type;
 extern const mp_print_t mp_plat_print;
@@ -49,7 +49,7 @@ STATIC void error_check(bool status, const char *msg) {
 }
 
 STATIC mp_obj_t player_make_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args) {
-    machine_player_obj_t *self = m_new_obj(machine_player_obj_t);
+    player_obj_t *self = m_new_obj(player_obj_t);
     self->base.type = &mp_player_type;
     mp_arg_check_num(n_args, n_kw, 0, 0, true);
     return MP_OBJ_FROM_PTR(self);
@@ -58,7 +58,7 @@ STATIC mp_obj_t player_make_new(const mp_obj_type_t *type, size_t n_args, size_t
 //set a music to play
 STATIC mp_obj_t player_open_song(mp_obj_t self_in, mp_obj_t path_obj) {
     const char* path = mp_obj_str_get_str(path_obj);
-    machine_player_obj_t *self = self_in;
+    player_obj_t *self = self_in;
     self->song_path = path;
 
     //Your code begin
@@ -73,7 +73,7 @@ MP_DEFINE_CONST_FUN_OBJ_2(player_open_song_obj, player_open_song);
 
 //pause music playing
 STATIC mp_obj_t player_pause_song(mp_obj_t self_in) {
-    machine_player_obj_t *self = self_in;
+    player_obj_t *self = self_in;
 
     //Your code begin
      mp_printf(&mp_plat_print, "player pause\n");
@@ -86,7 +86,7 @@ MP_DEFINE_CONST_FUN_OBJ_1(player_pause_song_obj, player_pause_song);
 
 //begin to play or continue to play music
 STATIC mp_obj_t player_play_song(mp_obj_t self_in) {
-    machine_player_obj_t *self = self_in;
+    player_obj_t *self = self_in;
 
     //Your code begin
     mp_printf(&mp_plat_print, "player play\n");
@@ -99,7 +99,7 @@ MP_DEFINE_CONST_FUN_OBJ_1(player_play_song_obj, player_play_song);
 
 //stop playing music
 STATIC mp_obj_t player_set_volume_song(mp_obj_t self_in, mp_obj_t volume_value_obj) {
-    machine_player_obj_t *self = self_in;
+    player_obj_t *self = self_in;
     mp_int_t volume_value = mp_obj_get_int(volume_value_obj);
     
     //Your code begin
@@ -123,7 +123,7 @@ MP_DEFINE_CONST_FUN_OBJ_2(player_set_volume_song_obj, player_set_volume_song);
 
 //stop playing, if this api is called, u should call opensong() to set a now song to play
 STATIC mp_obj_t player_stop_song(mp_obj_t self_in) {
-    machine_player_obj_t *self = self_in;
+    player_obj_t *self = self_in;
     mp_int_t ret_val;
 
     //Your code begin
