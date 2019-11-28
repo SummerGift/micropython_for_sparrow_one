@@ -131,16 +131,9 @@ STATIC mp_obj_t player_stop_song(mp_obj_t self_in) {
     player_stop();  
     //Your code end
 
-    return mp_obj_new_int(ret_val);
+    return mp_const_none;
 }
 MP_DEFINE_CONST_FUN_OBJ_1(player_stop_song_obj, player_stop_song);
-
-STATIC const mp_obj_type_t mp_player_type= {
-    { &mp_type_type },
-    .name = MP_QSTR_player,
-    .make_new = player_make_new,
-    .locals_dict = (mp_obj_dict_t*)&player_module_globals,
-};
 
 STATIC const mp_rom_map_elem_t player_module_globals_table[] = {
 	{ MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_player) },
@@ -152,6 +145,13 @@ STATIC const mp_rom_map_elem_t player_module_globals_table[] = {
 	{ MP_ROM_QSTR(MP_QSTR_stop), MP_ROM_PTR(&player_stop_song_obj) },
 };
 STATIC MP_DEFINE_CONST_DICT(player_module_globals, player_module_globals_table);
+
+STATIC const mp_obj_type_t mp_player_type= {
+    { &mp_type_type },
+    .name = MP_QSTR_player,
+    .make_new = player_make_new,
+    .locals_dict = (mp_obj_dict_t*)&player_module_globals,
+};
 
 const mp_obj_module_t mp_module_player = {
     .base = { &mp_type_module },
