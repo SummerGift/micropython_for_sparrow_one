@@ -28,7 +28,6 @@
 #include "py/runtime.h"
 #include "py/builtin.h"
 
-#define MICROPY_PY_RECORDER 1
 #if MICROPY_PY_RECORDER
 
 typedef struct _recorder_obj_t {
