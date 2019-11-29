@@ -52,7 +52,7 @@ STATIC mp_obj_t recorder_make_new(const mp_obj_type_t *type, size_t n_args, size
 }
 
 //set a music to play
-STATIC mp_obj_t recorder_record(mp_obj_t self_in, mp_obj_t path_obj) {
+STATIC mp_obj_t recorder_start(mp_obj_t self_in, mp_obj_t path_obj) {
     const char* path = mp_obj_str_get_str(path_obj);
     recorder_obj_t *self = self_in;
     self->save_path = path;
@@ -63,7 +63,7 @@ STATIC mp_obj_t recorder_record(mp_obj_t self_in, mp_obj_t path_obj) {
 
     return mp_const_none;
 }
-MP_DEFINE_CONST_FUN_OBJ_2(recorder_record_obj, recorder_record);
+MP_DEFINE_CONST_FUN_OBJ_2(recorder_start_obj, recorder_start);
 
 //stop playing, if this api is called, u should call opensong() to set a now song to play
 STATIC mp_obj_t recorder_stop_song(mp_obj_t self_in) {
@@ -81,7 +81,7 @@ MP_DEFINE_CONST_FUN_OBJ_1(recorder_stop_song_obj, recorder_stop_song);
 STATIC const mp_rom_map_elem_t recorder_module_globals_table[] = {
 	{ MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_recorder) },
     { MP_OBJ_NEW_QSTR(MP_QSTR_recorder), (mp_obj_t)&mp_recorder_type },	
-	{ MP_ROM_QSTR(MP_QSTR_record), MP_ROM_PTR(&recorder_record_obj) },
+	{ MP_ROM_QSTR(MP_QSTR_record), MP_ROM_PTR(&recorder_start_obj) },
 	{ MP_ROM_QSTR(MP_QSTR_stop), MP_ROM_PTR(&recorder_stop_song_obj) },
 };
 STATIC MP_DEFINE_CONST_DICT(recorder_module_globals, recorder_module_globals_table);
