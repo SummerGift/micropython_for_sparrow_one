@@ -44,7 +44,6 @@
 #include "machine_rtc.h"
 #include "machine_wdt.h"
 #include "machine_timer.h"
-#include "machine_player.h"
 
 #include <rthw.h>
 
