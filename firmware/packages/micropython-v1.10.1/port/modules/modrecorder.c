@@ -81,7 +81,7 @@ MP_DEFINE_CONST_FUN_OBJ_1(recorder_stop_song_obj, recorder_stop_song);
 STATIC const mp_rom_map_elem_t recorder_module_globals_table[] = {
 	{ MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_recorder) },
     { MP_OBJ_NEW_QSTR(MP_QSTR_recorder), (mp_obj_t)&mp_recorder_type },	
-	{ MP_ROM_QSTR(MP_QSTR_record), MP_ROM_PTR(&recorder_start_obj) },
+	{ MP_ROM_QSTR(MP_QSTR_start), MP_ROM_PTR(&recorder_start_obj) },
 	{ MP_ROM_QSTR(MP_QSTR_stop), MP_ROM_PTR(&recorder_stop_song_obj) },
 };
 STATIC MP_DEFINE_CONST_DICT(recorder_module_globals, recorder_module_globals_table);
