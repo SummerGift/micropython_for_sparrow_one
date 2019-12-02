@@ -28,14 +28,14 @@
 #include "py/runtime.h"
 #include "py/builtin.h"
 
-#if MICROPY_PY_RECORDER
+#if MICROPY_PY_CAMERA
 
-typedef struct _recorder_obj_t {
+typedef struct _camera_obj_t {
     mp_obj_base_t base;
     const char* save_path;
-} recorder_obj_t;
+} camera_obj_t;
 
-STATIC const mp_obj_type_t mp_recorder_type;
+STATIC const mp_obj_type_t mp_camera_type;
 extern const mp_print_t mp_plat_print;
 
 STATIC void error_check(bool status, const char *msg) {
@@ -44,17 +44,16 @@ STATIC void error_check(bool status, const char *msg) {
     }
 }
 
-STATIC mp_obj_t recorder_make_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args) {
-    recorder_obj_t *self = m_new_obj(recorder_obj_t);
-    self->base.type = &mp_recorder_type;
+STATIC mp_obj_t camera_make_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args) {
+    camera_obj_t *self = m_new_obj(camera_obj_t);
+    self->base.type = &mp_camera_type;
     mp_arg_check_num(n_args, n_kw, 0, 0, true);
     return MP_OBJ_FROM_PTR(self);
 }
 
-//set a music to play
-STATIC mp_obj_t recorder_start(mp_obj_t self_in, mp_obj_t path_obj) {
+STATIC mp_obj_t camera_snapshot(mp_obj_t self_in, mp_obj_t path_obj) {
     const char* path = mp_obj_str_get_str(path_obj);
-    recorder_obj_t *self = self_in;
+    camera_obj_t *self = self_in;
     self->save_path = path;
 
     //Your code begin
@@ -63,11 +62,10 @@ STATIC mp_obj_t recorder_start(mp_obj_t self_in, mp_obj_t path_obj) {
 
     return mp_const_none;
 }
-MP_DEFINE_CONST_FUN_OBJ_2(recorder_start_obj, recorder_start);
+MP_DEFINE_CONST_FUN_OBJ_2(camera_snapshot_obj, camera_snapshot);
 
-//stop playing, if this api is called, u should call opensong() to set a now song to play
-STATIC mp_obj_t recorder_stop_song(mp_obj_t self_in) {
-    recorder_obj_t *self = self_in;
+STATIC mp_obj_t camera_start_tcp_server(mp_obj_t self_in) {
+    camera_obj_t *self = self_in;
     mp_int_t ret_val;
 
     //Your code begin
@@ -76,26 +74,39 @@ STATIC mp_obj_t recorder_stop_song(mp_obj_t self_in) {
 
     return mp_const_none;
 }
-MP_DEFINE_CONST_FUN_OBJ_1(recorder_stop_song_obj, recorder_stop_song);
+MP_DEFINE_CONST_FUN_OBJ_1(camera_start_tcp_server_obj, camera_start_tcp_server);
 
-STATIC const mp_rom_map_elem_t recorder_module_globals_table[] = {
-	{ MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_recorder) },
-    { MP_OBJ_NEW_QSTR(MP_QSTR_recorder), (mp_obj_t)&mp_recorder_type },	
-	{ MP_ROM_QSTR(MP_QSTR_start), MP_ROM_PTR(&recorder_start_obj) },
-	{ MP_ROM_QSTR(MP_QSTR_stop), MP_ROM_PTR(&recorder_stop_song_obj) },
+STATIC mp_obj_t camera_stop_tcp_server(mp_obj_t self_in) {
+    camera_obj_t *self = self_in;
+    mp_int_t ret_val;
+
+    //Your code begin
+
+    //Your code end
+
+    return mp_const_none;
+}
+MP_DEFINE_CONST_FUN_OBJ_1(camera_stop_tcp_server_obj, camera_stop_tcp_server);
+
+STATIC const mp_rom_map_elem_t camera_module_globals_table[] = {
+	{ MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_camera) },
+    { MP_OBJ_NEW_QSTR(MP_QSTR_camera), (mp_obj_t)&mp_camera_type },	
+	{ MP_ROM_QSTR(MP_QSTR_snapshot), MP_ROM_PTR(&camera_snapshot_obj) },
+	{ MP_ROM_QSTR(MP_QSTR_server_start), MP_ROM_PTR(&camera_start_tcp_server_obj) },
+	{ MP_ROM_QSTR(MP_QSTR_server_stop), MP_ROM_PTR(&camera_stop_tcp_server_obj) },
 };
-STATIC MP_DEFINE_CONST_DICT(recorder_module_globals, recorder_module_globals_table);
+STATIC MP_DEFINE_CONST_DICT(camera_module_globals, camera_module_globals_table);
 
-STATIC const mp_obj_type_t mp_recorder_type= {
+STATIC const mp_obj_type_t mp_camera_type= {
     { &mp_type_type },
-    .name = MP_QSTR_recorder,
-    .make_new = recorder_make_new,
-    .locals_dict = (mp_obj_dict_t*)&recorder_module_globals,
+    .name = MP_QSTR_camera,
+    .make_new = camera_make_new,
+    .locals_dict = (mp_obj_dict_t*)&camera_module_globals,
 };
 
-const mp_obj_module_t mp_module_recorder = {
+const mp_obj_module_t mp_module_camera = {
     .base = { &mp_type_module },
-    .globals = (mp_obj_dict_t*)&recorder_module_globals,
+    .globals = (mp_obj_dict_t*)&camera_module_globals,
 };
 
 #endif // MICROPY_PY_PLAYER
