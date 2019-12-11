@@ -1,0 +1,20 @@
+# RT-Thread building script for zlib
+
+from building import *
+
+# get current directory
+cwd = GetCurrentDir()
+
+CPPPATH = [cwd + '/inc']
+LIBS    = []
+LIBPATH = []
+src = []
+
+LIBPATH += [cwd]
+LIBS += ['mpy_media_gcc.a']
+
+path = [cwd + '/inc']
+
+group = DefineGroup('mpy_media', src, depend = [''], CPPPATH = CPPPATH, LIBS = LIBS, LIBPATH = LIBPATH)
+
+Return('group')

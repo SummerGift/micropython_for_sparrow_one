@@ -168,10 +168,6 @@
 #define MICROPY_PY_MACHINE_TIMER     (1)
 #endif
 
-#ifdef MICROPYTHON_USING_MACHINE_PLAYER
-#define MICROPY_PY_MACHINE_PLAYER    (1)
-#endif
-
 /*****************************************************************************/
 /* System Module                                                             */
 
@@ -265,6 +261,18 @@
 
 #ifdef MICROPYTHON_USING_WLAN
 #define MICROPY_PY_WLAN             (1)
+#endif
+
+#ifdef MICROPYTHON_USING_PLAYER
+#define MICROPY_PY_PLAYER           (1)
+#endif
+
+#ifdef MICROPYTHON_USING_RECORDER
+#define MICROPY_PY_RECORDER         (1)
+#endif
+
+#ifdef MICROPYTHON_USING_CAMERA
+#define MICROPY_PY_CAMERA         (1)
 #endif
 
 #if MICROPY_PY_THREAD
@@ -482,6 +490,24 @@ extern const struct _mp_obj_module_t mp_module_network;
 #define MODNETWORK_PORT_BUILTIN_MODULES
 #endif
 
+#if MICROPY_PY_PLAYER
+#define MODPLAYER_PORT_BUILTIN_MODULES                    { MP_ROM_QSTR(MP_QSTR_player), MP_ROM_PTR(&mp_module_player) },
+#else
+#define MODPLAYER_PORT_BUILTIN_MODULES
+#endif
+
+#if MICROPY_PY_RECORDER
+#define MODRECORDER_PORT_BUILTIN_MODULES                    { MP_ROM_QSTR(MP_QSTR_recorder), MP_ROM_PTR(&mp_module_recorder) },
+#else
+#define MODRECORDER_PORT_BUILTIN_MODULES
+#endif
+
+#if MICROPY_PY_CAMERA
+#define MODCAMERA_PORT_BUILTIN_MODULES                    { MP_ROM_QSTR(MP_QSTR_camera), MP_ROM_PTR(&mp_module_camera) },
+#else
+#define MODCAMERA_PORT_BUILTIN_MODULES
+#endif
+
 // extra built in names to add to the global namespace
 #define MICROPY_PORT_BUILTINS \
     { MP_ROM_QSTR(MP_QSTR_exit), MP_ROM_PTR(&machine_soft_reset_obj) }, \
@@ -497,6 +523,9 @@ extern const struct _mp_obj_module_t mp_module_network;
     MODUTIME_PORT_BUILTIN_MODULES \
     MODFFI_PORT_BUILTIN_MODULES \
     MODNETWORK_PORT_BUILTIN_MODULES \
+    MODPLAYER_PORT_BUILTIN_MODULES  \
+    MODRECORDER_PORT_BUILTIN_MODULES \
+    MODCAMERA_PORT_BUILTIN_MODULES \
 
 #define MICROPY_PORT_BUILTIN_MODULE_WEAK_LINKS \
     MODUTIME_PORT_BUILTIN_MODULE_WEAK_LINKS \
